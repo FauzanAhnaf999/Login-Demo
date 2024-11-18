@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Bokor&family=Dancing+Script:wght@400..700&display=swap');
 *,
 html,body {
@@ -19,7 +19,6 @@ html,body {
 }
 
 .title-content{
-    font-family: sans-serif;
     text-align: center;
     height: 10vh;
     font-family: "Bokor", system-ui;
