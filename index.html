@@ -57,11 +57,14 @@
         console.log(uname.value);
         console.log(pword.value);
         localStorage.setItem("Username", uname.value);
-        
-        if(uname.value === "" || pword.value === ""){
-          alert("Masukin Data Akun dulu Anjing");
-          logoutButton.style.display = "none";
-
+      
+        if(uname.value===""){
+          alert("masukin username");
+          logoutButton.style.display="none"
+          return 0;
+        } if (pword.value===""){
+          alert("masukin password");
+          logoutButton.style.display="none";
           return 0;
         }
 
@@ -75,7 +78,7 @@
         } else {
           uname.style.display = "none";
           pword.style.display = "none";
-          loginButton.style.display = "none";
+          loginButton.style.display = "block";
           localStorage.setItem("Role", "Customer");
           cust.style.display = "block";
           admin.style.display = "none";
