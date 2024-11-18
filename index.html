@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acasis ECommerce</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body background="mountain.jpg">
+
+    <div class = "title">
+      <h1 class = "title-content"> Selamat Datang di Acasis Shop Centre  </h1>
+      
+    </div>
+    <div id="root" class="root">
+      <div class="form-row">
+        <div class="input-container">
+          <input type="text" id="uname" name="uname" placeholder="Username" />
+        </div>
+
+        <div class="input-container">
+          <input
+            type="password"
+            id="pword"
+            name="pword"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <button onclick="onLogin()" id="loginButton">Login</button>
+      <button onclick="onLogout()" id="logoutButton">Logout</button>
+
+      <div id="login-message">
+        <h1 id="admin" class="admin">Login Sebagai Admin</h1>
+        <h1 id="cust" class="cust">Login Sebagai Customer</h1>
+      </div>
+    </div>
+
+    <div class="container-picture">
+      <!-- <img src="image.png" class="picture" /> -->
+    </div>
+
+    <script type="application/javascript">
+      let uname = document.getElementById("uname");
+      let pword = document.getElementById("pword");
+      let loginButton = document.getElementById("loginButton");
+      let admin = document.getElementById("admin");
+      let cust = document.getElementById("cust");
+      let logoutButton = document.getElementById("logoutButton");
+
+      logoutButton.style.display = "none";
+
+      function onLogin() {
+        console.log("tombol login di klik");
+        logoutButton.style.display = "block";
+        console.log(uname.value);
+        console.log(pword.value);
+        localStorage.setItem("Username", uname.value);
+        
+        if(uname.value === "" || pword.value === ""){
+          alert("Masukin Data Akun dulu Anjing");
+          logoutButton.style.display = "none";
+
+          return 0;
+        }
+
+        if (uname.value === "Fauzan" && pword.value === "admin123") {
+          uname.style.display = "none";
+          pword.style.display = "none";
+          loginButton.style.display = "none";
+          localStorage.setItem("Role", "Admin");
+          admin.style.display = "block";
+          cust.style.display = "none";
+        } else {
+          uname.style.display = "none";
+          pword.style.display = "none";
+          loginButton.style.display = "none";
+          localStorage.setItem("Role", "Customer");
+          cust.style.display = "block";
+          admin.style.display = "none";
+        }
+        return 0;
+      }
+      if (localStorage.getItem("Username")) {
+        uname.style.display = "none";
+        pword.style.display = "none";
+        loginButton.style.display = "none";
+        logoutButton.style.display = "block";
+        if (localStorage.getItem("Role") == "Admin") {
+          admin.style.display = "block";
+          cust.style.display = "none";
+        } else {
+          cust.style.display = "block";
+          admin.style.display = "none";
+        }
+      }
+      function onLogout() {
+        localStorage.clear();
+        location.reload();
+      }
+    </script>
+  </body>
+</html>

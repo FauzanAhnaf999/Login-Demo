@@ -1,0 +1,133 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+*,
+html,body {
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+}
+
+.title{
+    margin-top: 30px;
+    height: 10vh;
+  
+
+}
+
+.title-content{
+    font-family: sans-serif;
+    text-align: center;
+    height: 10vh;
+    font-family: "Dancing Script", cursive;
+
+
+
+}
+
+.root {
+
+    opacity: 1;
+    color: aliceblue;
+    height: 80vh;
+    font-size: 1em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.form-row {
+    display: flex; 
+    gap: 20px; 
+    align-items: center;
+    margin-bottom: 15px;
+   
+    flex-direction: column; 
+    
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.input-container label {
+    margin-bottom: 5px; 
+ 
+}
+
+#login-message {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.picture {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.admin, .cust {
+    display: none;
+    margin-top: 5px;
+}
+
+#loginButton,
+#logoutButton {
+    background-color: #59c1db; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px;
+    font-size: 1em; 
+    font-weight: bold;
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+#loginButton:hover,
+#logoutButton:hover {
+    background-color: #2a7c6d; 
+    transform: scale(1.05); 
+}
+
+#loginButton:active,
+#logoutButton:active {
+    background-color: #64c9cc; 
+    transform: scale(0.98); 
+}
+
+.input-container input[type="text"],
+.input-container input[type="password"] {
+    width: 250px; 
+    padding: 10px; 
+    font-size: 1em;
+    border: 1px solid #cfcfd0; 
+    border-radius: 5px; 
+    outline: none; 
+    background-color: #f3f3f3; 
+    color: #333; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.input-container input[type="text"]:hover,
+.input-container input[type="password"]:hover {
+    border-color: #3700b3;
+}
+
+.input-container input[type="text"]:focus,
+.input-container input[type="password"]:focus {
+    border-color: #6200ea; 
+    box-shadow: 0px 0px 8px rgba(98, 0, 234, 0.5); 
+    background-color: #fff; 
+}
