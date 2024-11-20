@@ -8,17 +8,14 @@
   </head>
 
   <body background="mountain.jpg">
-
-    <div class = "title">
-      <h1 class = "title-content"> Acasis Shop Centre  </h1>
-      
+    <div class="title">
+      <h1 class="title-content">Selamat Datang di Acasis Shop Centre</h1>
     </div>
     <div id="root" class="root">
-      <div class="form-row">
+      <div id="login-form" class="form-row">
         <div class="input-container">
           <input type="text" id="uname" name="uname" placeholder="Username" />
         </div>
-
         <div class="input-container">
           <input
             type="password"
@@ -27,9 +24,30 @@
             placeholder="Password"
           />
         </div>
+        <button onclick="onLogin()" id="loginButton" class="button-group">Login</button>
+        <button onclick="showRegisterForm()" id="registerButton" class="button-group">
+          Register
+        </button>
       </div>
-      <button onclick="onLogin()" id="loginButton">Login</button>
-      <button onclick="onLogout()" id="logoutButton">Logout</button>
+
+      <!-- Form Register -->
+      <div id="register-form" class="form-row" style="display: none;">
+        <div class="input-container">
+          <input type="text" id="reg-username" placeholder="Username" />
+        </div>
+        <div class="input-container">
+          <input type="password" id="reg-password" placeholder="Password" />
+        </div>
+        <button onclick="onRegister()" id="registerSubmitButton" class="button-group">Submit</button>
+        <button onclick="hideRegisterForm()" id="cancelSubmitButton" class="button-group">
+          Cancel
+        </button>
+      </div>
+
+      <!-- Tombol Logout -->
+      <button onclick="onLogout()" id="logoutButton" style="display: none;">
+        Logout
+      </button>
 
       <div id="login-message">
         <h1 id="admin" class="admin">Login Sebagai Admin</h1>
@@ -37,71 +55,128 @@
       </div>
     </div>
 
-    <div class="container-picture">
-      <!-- <img src="image.png" class="picture" /> -->
-    </div>
-
-    <script type="application/javascript">
+    <script>
       let uname = document.getElementById("uname");
       let pword = document.getElementById("pword");
       let loginButton = document.getElementById("loginButton");
+      let registerButton = document.getElementById("registerButton");
+      let registerForm = document.getElementById("register-form");
+      let loginForm = document.getElementById("login-form");
+      let logoutButton = document.getElementById("logoutButton");
       let admin = document.getElementById("admin");
       let cust = document.getElementById("cust");
-      let logoutButton = document.getElementById("logoutButton");
 
-      logoutButton.style.display = "none";
+      // Inisialisasi Admin Default
+      function initializeDefaultAdmin() {
+        let users = JSON.parse(localStorage.getItem("Users")) || [];
+
+        // Tambahkan Fauzan sebagai admin jika belum ada
+        const isAdminRegistered = users.some(
+          (user) => user.username === "Fauzan"
+        );
+
+        if (!isAdminRegistered) {
+          users.push({
+            username: "Fauzan",
+            password: "admin123",
+            role: "Admin",
+          });
+          localStorage.setItem("Users", JSON.stringify(users));
+          console.log("Admin default (Fauzan) telah ditambahkan.");
+        }
+      }
 
       function onLogin() {
-        console.log("tombol login di klik");
-        logoutButton.style.display = "block";
-        console.log(uname.value);
-        console.log(pword.value);
-        localStorage.setItem("Username", uname.value);
-      
-        if(uname.value===""){
-          alert("masukin username");
-          logoutButton.style.display="none"
-          return 0;
-        } if (pword.value===""){
-          alert("masukin password");
-          logoutButton.style.display="none";
-          return 0;
+        const username = uname.value;
+        const password = pword.value;
+
+        if (username === "" || password === "") {
+          alert("Masukkan username dan password!");
+          return;
         }
 
-        if (uname.value === "Fauzan" && pword.value === "admin123") {
-          uname.style.display = "none";
-          pword.style.display = "none";
-          loginButton.style.display = "none";
-          localStorage.setItem("Role", "Admin");
-          admin.style.display = "block";
-          cust.style.display = "none";
+        // Cek apakah pengguna terdaftar
+        const users = JSON.parse(localStorage.getItem("Users")) || [];
+        const user = users.find(
+          (u) => u.username === username && u.password === password
+        );
+
+        if (user) {
+          alert("Login berhasil!");
+          localStorage.setItem("Username", username);
+          localStorage.setItem("Role", user.role);
+          displayRole(user.role);
         } else {
-          uname.style.display = "none";
-          pword.style.display = "none";
-          loginButton.style.display = "none";
-          localStorage.setItem("Role", "Customer");
-          cust.style.display = "block";
-          admin.style.display = "none";
+          alert("Username atau password salah, atau Anda belum terdaftar.");
         }
-        return 0;
       }
-      if (localStorage.getItem("Username")) {
+
+      function onRegister() {
+        const regUsername = document.getElementById("reg-username").value;
+        const regPassword = document.getElementById("reg-password").value;
+
+        if (regUsername === "" || regPassword === "") {
+          alert("Masukkan username dan password untuk mendaftar!");
+          return;
+        }
+
+        let users = JSON.parse(localStorage.getItem("Users")) || [];
+        if (users.some((u) => u.username === regUsername)) {
+          alert("Username sudah terdaftar!");
+          return;
+        }
+
+        // Tambahkan pengguna ke localStorage
+        users.push({
+          username: regUsername,
+          password: regPassword,
+          role: "Customer",
+        });
+        localStorage.setItem("Users", JSON.stringify(users));
+        alert("Pendaftaran berhasil! Silakan login.");
+        hideRegisterForm();
+      }
+
+      function displayRole(role) {
         uname.style.display = "none";
         pword.style.display = "none";
         loginButton.style.display = "none";
+        registerButton.style.display = "none";
         logoutButton.style.display = "block";
-        if (localStorage.getItem("Role") == "Admin") {
+
+        if (role === "Admin") {
           admin.style.display = "block";
           cust.style.display = "none";
         } else {
-          cust.style.display = "block";
           admin.style.display = "none";
+          cust.style.display = "block";
         }
       }
+
+      function showRegisterForm() {
+        loginForm.style.display = "none";
+        registerForm.style.display = "flex";
+      }
+
+      function hideRegisterForm() {
+        registerForm.style.display = "none";
+        loginForm.style.display = "flex";
+      }
+
       function onLogout() {
-        localStorage.clear();
+        localStorage.removeItem("Username");
+        localStorage.removeItem("Role");
         location.reload();
       }
+
+      // Jika pengguna sudah login, tampilkan pesan yang sesuai
+      if (localStorage.getItem("Username")) {
+        const role = localStorage.getItem("Role");
+        displayRole(role);
+      }
+
+      initializeDefaultAdmin();
+      
     </script>
   </body>
 </html>
